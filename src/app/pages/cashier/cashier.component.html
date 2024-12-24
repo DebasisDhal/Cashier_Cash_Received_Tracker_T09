@@ -1,0 +1,105 @@
+
+  
+  <div class="container mt-4">
+    <h3>Cashier Cash Received Tracker</h3>
+    <div class="row g-3" [formGroup]="casherForm">
+      <div class="col-md-3">
+        <label for="financialYear" class="form-label">Financial Year</label>
+        <select class="form-select" id="financialYear" formControlName="financialYearId">
+          <option value="1">2022-23</option>
+          <option value="2">2023-24</option>
+          <option value="3">2024-25</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label for="fromDate" class="form-label">From*</label>
+        <input type="datetime-local" class="form-control" id="fromDate" value="2024-11-25" formControlName="fromDate" />
+      </div>
+      <div class="col-md-3">
+        <label for="toDate" class="form-label">To*</label>
+        <input type="date" class="form-control" id="toDate" value="2024-11-25" formControlName="toDate"/>
+      </div>
+      <div class="col-md-3 d-flex align-items-end">
+        <button type="button" class="btn btn-primary" (click)="onSaveUser()">Search</button>
+      </div>
+    </div>
+<div class="table-responsive mt-4">
+  <table class="table table-bordered">
+      <thead class="table-light">
+          <tr>
+              <th></th>
+              <th>Date</th>
+              <th>Bill Manager</th>
+              <th>Counter Type</th>
+              <th>Counter Name</th>
+              <th>User Sessions</th>
+              <th>Users</th>
+              <th>User Session Status</th>
+              <th>System Cash Closing Balance</th>
+              <th>Cash Received Amount</th>
+              <th>Variance</th>
+             
+          </tr>
+      </thead>
+      <tbody  >
+        @for (item of gridData; track $index) {
+          <tr >
+         
+          @if(item.billManager){
+        
+              <td>
+                @if(isRowVisible){
+                  <button type="button" (click)="toggleRow()" class="btn btn-success">
+                      +
+                  </button>
+                }@else{
+                  <button type="button" (click)="close()" class="btn btn-danger">
+                      -
+                  </button>
+                }
+              </td>
+
+              @if(isRowVisible){
+                <td></td>
+                <td>{{item.billManager}}</td>
+            }@else{
+              <td>{{item.transactionDate}}</td>
+              <td>{{item.billManager}}</td>
+              <td>{{item.counterType}}</td>
+              <td>{{item.counterName}}</td>
+              <td>{{item.userSession}}</td>
+              <td>{{item.users}}</td>
+              <td>{{item.userSessionStatus}}</td>
+              <td>{{item.sysCashClosingBalance}}</td>
+              <td>{{item.cashRcvAmt}}</td>
+              <td>{{item.varience}}</td>
+            }
+         
+        }
+      </tr>
+        }
+          <!-- <tr *ngIf="isRowVisible">
+              <td>
+                  <button type="button" class="btn btn-success">
+                      +
+                  </button>
+              </td>
+              <td>25/11/2024</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>8965.00</td>
+              <td>2615.00</td>
+              <td>-6350.00</td>
+              <td></td>
+          </tr> -->
+      </tbody>
+  </table>
+</div>
+
+  </div>
+
+
