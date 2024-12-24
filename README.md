@@ -1,6 +1,12 @@
 # Nekss
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.2.
+![image](https://github.com/user-attachments/assets/01f00ce3-54ac-4287-843b-0e9b7f090124)
+
+![image](https://github.com/user-attachments/assets/1946b49d-7c48-47b1-9a0b-dc4b044d19cd)
+
+
+# Mainly Focus => cross-origin, Ractive form and some conditions in Table also
 
 ## Development server
 
