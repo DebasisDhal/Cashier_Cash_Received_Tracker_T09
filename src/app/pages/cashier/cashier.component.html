@@ -1,7 +1,7 @@
 
   
   <div class="container mt-4">
-    <h3>Cashier Cash Received Tracker</h3>
+    <h3 style="text-align: center; margin-bottom: 50px;" >Cashier Cash Received Tracker</h3>
     <div class="row g-3" [formGroup]="casherForm">
       <div class="col-md-3">
         <label for="financialYear" class="form-label">Financial Year</label>
@@ -43,59 +43,128 @@
       </thead>
       <tbody  >
         @for (item of gridData; track $index) {
-          <tr >
+         
          
           @if(item.billManager){
-        
+            <tr>
               <td>
-                @if(isRowVisible){
-                  <button type="button" (click)="toggleRow()" class="btn btn-success">
-                      +
+                @if(BillManager){
+                  <button type="button" (click)="toggleRow()" class="btn btn-danger">
+                      -
                   </button>
                 }@else{
-                  <button type="button" (click)="close()" class="btn btn-danger">
-                      -
+                  <button type="button" (click)="close()" class="btn btn-success">
+                      +
                   </button>
                 }
               </td>
 
-              @if(isRowVisible){
-                <td></td>
+              <td>{{item.transactionDate }}</td>
+            </tr>
+            
+              @if(BillManager){
+                <tr>
+                  <td>
+                    @if(CounterType){
+                      <button type="button" (click)="counterClose()" class="btn btn-danger">
+                          -
+                      </button>
+                    }@else{
+                      <button type="button" (click)="counterOpen()" class="btn btn-success">
+                          +
+                      </button>
+                    }
+                  </td>
+                  <td></td>
                 <td>{{item.billManager}}</td>
-            }@else{
-              <td>{{item.transactionDate}}</td>
-              <td>{{item.billManager}}</td>
-              <td>{{item.counterType}}</td>
-              <td>{{item.counterName}}</td>
-              <td>{{item.userSession}}</td>
-              <td>{{item.users}}</td>
-              <td>{{item.userSessionStatus}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{item.sysCashClosingBalance}}</td>
+                <td>{{item.cashRcvAmt}}</td>
+                <td>{{item.varience}}</td>
+              </tr>
+              }
+           
+               @if(CounterType){
+                <tr>
+                  <td>
+                    @if(CounterName){
+                      <button type="button" (click)="CounterNameClose()" class="btn btn-danger">
+                          -
+                      </button>
+                    }@else{
+                      <button type="button" (click)="CounterNameOpen()" class="btn btn-success">
+                          +
+                      </button>
+                    }
+                  </td>
+                  <td></td>
+                <td></td>
+                <td>{{item.counterType}}2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{item.sysCashClosingBalance}}</td>
+                <td>{{item.cashRcvAmt}}</td>
+                <td>{{item.varience}}</td>
+              </tr>
+               }
+           
+              @if(CounterName){
+                <tr>
+                    <td>
+                  @if(UserSession){
+                    <button type="button" (click)="UserSessionClose()" class="btn btn-danger">
+                        -
+                    </button>
+                  }@else{
+                    <button type="button" (click)="UserSessionOpen()" class="btn btn-success">
+                        +
+                    </button>
+                  }
+                </td>
+                <td></td>
+              <td></td>
+              <td></td>
+              <td>{{item.counterName}}3</td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td>{{item.sysCashClosingBalance}}</td>
               <td>{{item.cashRcvAmt}}</td>
               <td>{{item.varience}}</td>
+            </tr>
+              }
+              @else{
+             
+            
+            }
+             @if(UserSession){
+              <tr>
+                <td></td>
+                <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>{{item.userSession}}4</td>
+              <td>{{item.users}}5</td>
+              <td>{{item.userSessionStatus}}6</td>
+              <td>{{item.sysCashClosingBalance}}</td>
+              <td>{{item.cashRcvAmt}}</td>
+              <td>{{item.varience}}</td>
+            </tr>
+             }
+              @else{
+           
             }
          
         }
-      </tr>
+    
         }
-          <!-- <tr *ngIf="isRowVisible">
-              <td>
-                  <button type="button" class="btn btn-success">
-                      +
-                  </button>
-              </td>
-              <td>25/11/2024</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>8965.00</td>
-              <td>2615.00</td>
-              <td>-6350.00</td>
-              <td></td>
-          </tr> -->
       </tbody>
   </table>
 </div>

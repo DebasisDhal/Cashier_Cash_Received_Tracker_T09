@@ -44,14 +44,43 @@ onSaveUser(){
 
 
   // Variable to track row visibility
-  isRowVisible: boolean = true;
+  
+  BillManager: boolean = false;
+  CounterType: boolean = false;
+  CounterName: boolean = false;
+  UserSession: boolean = false;
 
   // Function to toggle row visibility
   toggleRow(): void {
-    this.isRowVisible = false;
+   
+    this.BillManager = false;
    
   }
   close():void{
-    this.isRowVisible = true
+    
+    this.BillManager = true;
+    this.CounterType = false;
+    this.CounterName = false;
+    this.UserSession = false;
   }
+  counterOpen(){
+    this.CounterType = true;
+  }
+  counterClose(){
+    this.CounterType = false;
+  }
+  CounterNameOpen(){
+    this.CounterName = true;
+  }
+  CounterNameClose(){
+    this.CounterName = false;
+  }
+  UserSessionOpen(){
+    this.UserSession = true;
+  }
+  UserSessionClose(){
+    this.UserSession = false;
+  }
+
+  
 }
