@@ -6,18 +6,27 @@
       <div class="col-md-3">
         <label for="financialYear" class="form-label">Financial Year</label>
         <select class="form-select" id="financialYear" formControlName="financialYearId">
-          <option value="1">2022-23</option>
-          <option value="2">2023-24</option>
+          <option value="3">2022-23</option>
+          <option value="3">2023-24</option>
           <option value="3">2024-25</option>
         </select>
+        <div class="text-danger" *ngIf="casherForm.get('financialYearId')?.touched && casherForm.get('financialYearId')?.errors?.['required']">
+          This field is required.
+        </div>
       </div>
       <div class="col-md-3">
-        <label for="fromDate" class="form-label">From*</label>
-        <input type="datetime-local" class="form-control" id="fromDate" value="2024-11-25" formControlName="fromDate" />
+        <label for="fromDate" class="form-label">From</label>
+        <input type="datetime-local" class="form-control" id="fromDate"  formControlName="fromDate" />
+        <div class="text-danger" *ngIf="casherForm.controls['fromDate'].touched">
+          <span *ngIf="casherForm.controls['fromDate'].errors?.['required']">This is Required</span>
+       </div>
       </div>
       <div class="col-md-3">
-        <label for="toDate" class="form-label">To*</label>
-        <input type="date" class="form-control" id="toDate" value="2024-11-25" formControlName="toDate"/>
+        <label for="toDate" class="form-label">To</label>
+        <input type="date" class="form-control" id="toDate"  formControlName="toDate"/>
+        <div class="text-danger" *ngIf="casherForm.controls['toDate'].touched">
+          <span *ngIf="casherForm.controls['toDate'].errors?.['required']">This is Required</span>
+       </div>
       </div>
       <div class="col-md-3 d-flex align-items-end">
         <button type="button" class="btn btn-primary" (click)="onSaveUser()">Search</button>
@@ -44,9 +53,8 @@
       <tbody  >
         @for (item of gridData; track $index) {
          
-         
           @if(item.billManager){
-            <tr>
+            <tr *ngIf="$index === 1 || gridData[$index - 1].transactionDate !== item.transactionDate">
               <td>
                 @if(BillManager){
                   <button type="button" (click)="toggleRow()" class="btn btn-danger">
@@ -58,22 +66,21 @@
                   </button>
                 }
               </td>
+             
+              <td >
+              {{item.transactionDate }}
 
-              <td>{{item.transactionDate }}</td>
+            </td>
             </tr>
             
               @if(BillManager){
                 <tr>
                   <td>
-                    @if(CounterType){
-                      <button type="button" (click)="counterClose()" class="btn btn-danger">
-                          -
-                      </button>
-                    }@else{
-                      <button type="button" (click)="counterOpen()" class="btn btn-success">
-                          +
-                      </button>
-                    }
+                    <button type="button" class="btn" 
+                    [ngClass]="selectedRowIndex === $index ? 'btn-danger' : 'btn-success'"
+                    (click)="toggleDetails($index)">
+              {{ selectedRowIndex === $index ? '-' : '+' }}
+            </button>
                   </td>
                   <td></td>
                 <td>{{item.billManager}}</td>
@@ -88,18 +95,14 @@
               </tr>
               }
            
-               @if(CounterType){
+               @if(selectedRowIndex === $index){
                 <tr>
                   <td>
-                    @if(CounterName){
-                      <button type="button" (click)="CounterNameClose()" class="btn btn-danger">
-                          -
-                      </button>
-                    }@else{
-                      <button type="button" (click)="CounterNameOpen()" class="btn btn-success">
-                          +
-                      </button>
-                    }
+                    <button type="button" class="btn" 
+                      [ngClass]="selectedRowIndex === $index ? 'btn-danger' : 'btn-success'"
+                      (click)="toggleDetails($index)">
+                {{ selectedRowIndex === $index ? '-' : '+' }}
+              </button>
                   </td>
                   <td></td>
                 <td></td>
@@ -114,18 +117,14 @@
               </tr>
                }
            
-              @if(CounterName){
+              @if(selectedRowIndex === $index){
                 <tr>
                     <td>
-                  @if(UserSession){
-                    <button type="button" (click)="UserSessionClose()" class="btn btn-danger">
-                        -
-                    </button>
-                  }@else{
-                    <button type="button" (click)="UserSessionOpen()" class="btn btn-success">
-                        +
-                    </button>
-                  }
+                      <button type="button" class="btn" 
+                      [ngClass]="selectedRowIndex === $index ? 'btn-danger' : 'btn-success'"
+                      (click)="toggleDetails($index)">
+                {{ selectedRowIndex === $index ? '-' : '+' }}
+              </button>
                 </td>
                 <td></td>
               <td></td>
@@ -139,11 +138,7 @@
               <td>{{item.varience}}</td>
             </tr>
               }
-              @else{
-             
-            
-            }
-             @if(UserSession){
+             @if(selectedRowIndex === $index){
               <tr>
                 <td></td>
                 <td></td>
@@ -158,10 +153,6 @@
               <td>{{item.varience}}</td>
             </tr>
              }
-              @else{
-           
-            }
-         
         }
     
         }
@@ -172,3 +163,9 @@
   </div>
 
 
+
+
+
+  
+  
+  

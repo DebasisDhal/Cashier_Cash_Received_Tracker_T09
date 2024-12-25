@@ -13,6 +13,10 @@ import { Cashier } from '../../model/master';
 })
 export class CashierComponent {
 
+  // Variable to track row visibility
+  
+  BillManager: boolean = false;
+  selectedRowIndex: number | null = null;
   
   mService=inject(MasterService);
 
@@ -34,53 +38,27 @@ onSaveUser(){
   this.objs = this.casherForm.value;
   this.objs.financialYearId = parseInt(this.objs.financialYearId);
 
-
+  this.BillManager = false;
+ 
   this.mService.saveCashier(this.objs).subscribe((res:Cashier)=>{
     this.gridData=res;
     console.log(res);
+
     
   })
 }
 
-
-  // Variable to track row visibility
-  
-  BillManager: boolean = false;
-  CounterType: boolean = false;
-  CounterName: boolean = false;
-  UserSession: boolean = false;
-
   // Function to toggle row visibility
   toggleRow(): void {
-   
     this.BillManager = false;
-   
   }
   close():void{
-    
     this.BillManager = true;
-    this.CounterType = false;
-    this.CounterName = false;
-    this.UserSession = false;
   }
-  counterOpen(){
-    this.CounterType = true;
-  }
-  counterClose(){
-    this.CounterType = false;
-  }
-  CounterNameOpen(){
-    this.CounterName = true;
-  }
-  CounterNameClose(){
-    this.CounterName = false;
-  }
-  UserSessionOpen(){
-    this.UserSession = true;
-  }
-  UserSessionClose(){
-    this.UserSession = false;
-  }
-
   
+
+  // Toggle function to show or hide row details
+  toggleDetails(index: number): void {
+    this.selectedRowIndex = this.selectedRowIndex === index ? null : index;
+  }
 }
