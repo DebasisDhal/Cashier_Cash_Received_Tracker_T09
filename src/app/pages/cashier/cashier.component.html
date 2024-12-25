@@ -16,14 +16,14 @@
       </div>
       <div class="col-md-3">
         <label for="fromDate" class="form-label">From</label>
-        <input type="datetime-local" class="form-control" id="fromDate"  formControlName="fromDate" />
+        <input type="date" class="form-control" id="fromDate"  formControlName="fromDate" #formDate/>
         <div class="text-danger" *ngIf="casherForm.controls['fromDate'].touched">
           <span *ngIf="casherForm.controls['fromDate'].errors?.['required']">This is Required</span>
        </div>
       </div>
       <div class="col-md-3">
         <label for="toDate" class="form-label">To</label>
-        <input type="date" class="form-control" id="toDate"  formControlName="toDate"/>
+        <input type="date" class="form-control" id="toDate"  formControlName="toDate" #toDate/>
         <div class="text-danger" *ngIf="casherForm.controls['toDate'].touched">
           <span *ngIf="casherForm.controls['toDate'].errors?.['required']">This is Required</span>
        </div>
@@ -71,6 +71,10 @@
               {{item.transactionDate }}
 
             </td>
+            <td colspan="3" class="text-center" style="font-weight: bold; font-size: 18px; color: blue; padding: 10px; background-color: #f0f8ff; border: 1px solid #ccc;">
+              <span>{{ formDate.value }}</span> to <span>{{ toDate.value }}</span>
+            </td>
+            
             </tr>
             
               @if(BillManager){
