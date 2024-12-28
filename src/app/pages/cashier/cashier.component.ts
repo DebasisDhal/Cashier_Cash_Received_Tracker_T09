@@ -51,9 +51,11 @@ onSaveUser(){
   // Function to toggle row visibility
   toggleRow(): void {
     this.BillManager = false;
+    //this.selectedRowIndex = 0;
   }
   close():void{
     this.BillManager = true;
+    
   }
   
 
